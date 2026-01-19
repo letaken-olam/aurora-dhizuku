@@ -99,8 +99,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            if (File("signing.properties").exists()) {
-                signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (File("signing.properties").exists()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("aosp")
             }
         }
 
@@ -240,6 +242,9 @@ dependencies {
     implementation(libs.rikka.tools.refine.runtime)
     implementation(libs.rikka.shizuku.api)
     implementation(libs.rikka.shizuku.provider)
+
+    // Dhizuku
+    implementation(libs.dhizuku.api)
 
     implementation(libs.lsposed.hiddenapibypass)
 

@@ -152,7 +152,7 @@ class AppInstaller @Inject constructor(
 
                 Installer.DEVICE_OWNER -> isDeviceOwner(context)
 
-                Installer.DHIZUKU -> isOAndAbove && hasDhizuku(context) && hasDhizukuPerm(context)
+                Installer.DHIZUKU -> isOAndAbove
             }
         }
 
@@ -253,11 +253,7 @@ class AppInstaller @Inject constructor(
                 defaultInstaller
             }
 
-            Installer.DHIZUKU -> if (hasDhizuku(context) && hasDhizukuPerm(context)) {
-                dhizukuInstaller
-            } else {
-                defaultInstaller
-            }
+            Installer.DHIZUKU -> dhizukuInstaller
         }
     }
 }

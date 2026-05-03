@@ -91,7 +91,7 @@ class AppInstaller @Inject constructor(
                 if (hasAppManager(context)) AMInstaller.installerInfo else null,
                 if (hasShizukuOrSui(context)) ShizukuInstaller.installerInfo else null,
                 if (hasMicroGCompanion(context)) MicroGInstaller.installerInfo else null,
-                if (hasDhizuku(context) && hasDhizukuPerm(context)) DhizukuInstaller.installerInfo else null
+                DhizukuInstaller.installerInfo
             )
         }
 

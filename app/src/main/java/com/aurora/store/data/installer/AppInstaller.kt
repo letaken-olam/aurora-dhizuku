@@ -180,8 +180,11 @@ class AppInstaller @Inject constructor(
         fun hasShizukuPerm(): Boolean =
             Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
 
-        fun hasDhizuku(context: Context): Boolean = isOAndAbove &&
-            PackageUtil.isInstalled(context, DHIZUKU_PACKAGE_NAME)
+        fun hasDhizuku(context: Context): Boolean = isOAndAbove && try {
+            Dhizuku.init(context)
+        } catch (_: Exception) {
+            false
+        }
 
         fun hasDhizukuPerm(context: Context): Boolean = try {
             Dhizuku.init(context)

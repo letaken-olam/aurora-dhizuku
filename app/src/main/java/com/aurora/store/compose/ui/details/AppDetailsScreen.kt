@@ -83,6 +83,7 @@ import com.aurora.store.data.model.Report
 import com.aurora.store.data.model.Scores
 import com.aurora.store.data.providers.PermissionProvider.Companion.isPermittedToInstall
 import com.aurora.store.util.FlavouredUtil
+import com.aurora.store.util.ManagedConfiguration
 import com.aurora.store.util.PackageUtil
 import com.aurora.store.util.ShortcutManagerUtil
 import com.aurora.store.viewmodel.details.AppDetailsViewModel
@@ -224,6 +225,10 @@ private fun ScreenContentApp(
     val coroutineScope = rememberCoroutineScope()
     val shouldShowMenuOnMainPane = scaffoldNavigator
         .scaffoldValue[SupportingPaneScaffoldRole.Supporting] == PaneAdaptedValue.Hidden
+    val hideScreenshots = ManagedConfiguration.getBoolean(
+        context = context,
+        key = ManagedConfiguration.HIDE_APP_DETAILS_SCREENSHOTS
+    )
 
     fun onNavigateBack() {
         coroutineScope.launch {
@@ -364,10 +369,12 @@ private fun ScreenContentApp(
                     onClick = { showExtraPane(ExtraScreen.More) }
                 )
 
-                Screenshots(
-                    screenshots = app.screenshots,
-                    onNavigateToScreenshot = { showExtraPane(ExtraScreen.Screenshot(it)) }
-                )
+                if (!hideScreenshots) {
+                    Screenshots(
+                        screenshots = app.screenshots,
+                        onNavigateToScreenshot = { showExtraPane(ExtraScreen.Screenshot(it)) }
+                    )
+                }
 
                 RatingAndReviews(
                     rating = app.rating,

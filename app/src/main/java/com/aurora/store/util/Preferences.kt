@@ -62,6 +62,8 @@ object Preferences {
 
     const val PREFERENCE_MIGRATION_VERSION = "PREFERENCE_MIGRATION_VERSION"
 
+    const val PREFERENCE_MANAGED_DISABLE_STORE_IMAGES = "PREFERENCE_MANAGED_DISABLE_STORE_IMAGES"
+
     private var prefs: SharedPreferences? = null
 
     fun getPrefs(context: Context): SharedPreferences = when (BuildConfig.FLAVOR) {

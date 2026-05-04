@@ -112,12 +112,25 @@ class AuroraApp : Application(), Configuration.Provider, SingletonImageLoader.Fa
         CommonUtil.cleanupInstallationSessions(applicationContext)
     }
 
-    override fun newImageLoader(context: Context): ImageLoader = ImageLoader(this).newBuilder()
-        .crossfade(true)
-        .components {
-            if (!Preferences.getBoolean(context, Preferences.PREFERENCE_MANAGED_DISABLE_STORE_IMAGES)) {
-                add(OkHttpNetworkFetcherFactory(callFactory = okHttpClient))
+    override fun newImageLoader(context: Context): ImageLoader {
+        val disableStoreImages = Preferences.getBoolean(
+            context,
+            Preferences.PREFERENCE_MANAGED_DISABLE_STORE_IMAGES
+        )
+
+        return ImageLoader(this).newBuilder()
+            .crossfade(true)
+            .apply {
+                if (disableStoreImages) {
+                    memoryCache(null)
+                    diskCache(null)
+                }
             }
-        }
-        .build()
+            .components {
+                if (!disableStoreImages) {
+                    add(OkHttpNetworkFetcherFactory(callFactory = okHttpClient))
+                }
+            }
+            .build()
+    }
 }

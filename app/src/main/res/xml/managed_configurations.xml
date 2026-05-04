@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<restrictions xmlns:android="http://schemas.android.com/apk/res/android">
+    <restriction
+        android:key="PREFERENCE_MANAGED_DISABLE_STORE_IMAGES"
+        android:restrictionType="bool"
+        android:title="@string/managed_config_disable_store_images_title"
+        android:description="@string/managed_config_disable_store_images_desc"
+        android:defaultValue="false" />
+</restrictions>

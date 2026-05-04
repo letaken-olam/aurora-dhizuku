@@ -56,6 +56,7 @@ import java.util.Locale
 fun RatingAndReviews(
     rating: Rating,
     featuredReviews: List<Review> = emptyList(),
+    hideReviewProfileImages: Boolean = false,
     onNavigateToDetailsReview: () -> Unit = {},
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo()
 ) {
@@ -136,7 +137,7 @@ fun RatingAndReviews(
                     .background(color = MaterialTheme.colorScheme.surfaceContainer)
                     .requiredHeight(dimensionResource(R.dimen.review_height))
             ) {
-                ReviewListItem(review = featuredReviews[page])
+                ReviewListItem(review = featuredReviews[page], hideProfileImage = hideReviewProfileImages)
             }
         }
     }

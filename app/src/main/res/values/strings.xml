@@ -559,4 +559,6 @@
     <!-- Misc -->
     <string name="loading">Loading in progress</string>
     <string name="page">Page <xliff:g id="number">%1$d</xliff:g></string>
+    <string name="managed_config_disable_store_images_title">Disable store images</string>
+    <string name="managed_config_disable_store_images_desc">If enabled, Aurora Store won\'t load remote app images such as icons and screenshots.</string>
 </resources>

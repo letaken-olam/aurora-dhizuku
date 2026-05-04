@@ -83,6 +83,7 @@ import com.aurora.store.data.model.Report
 import com.aurora.store.data.model.Scores
 import com.aurora.store.data.providers.PermissionProvider.Companion.isPermittedToInstall
 import com.aurora.store.util.FlavouredUtil
+import com.aurora.store.util.ManagedConfigurations
 import com.aurora.store.util.PackageUtil
 import com.aurora.store.util.ShortcutManagerUtil
 import com.aurora.store.viewmodel.details.AppDetailsViewModel
@@ -98,6 +99,10 @@ fun AppDetailsScreen(
     forceSinglePane: Boolean = false
 ) {
     val context = LocalContext.current
+    val hideScreenshotsSection = ManagedConfigurations.getBoolean(
+        context = context,
+        key = ManagedConfigurations.HIDE_APP_DETAILS_SCREENSHOTS
+    )
 
     val app by viewModel.app.collectAsStateWithLifecycle()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -364,10 +369,12 @@ private fun ScreenContentApp(
                     onClick = { showExtraPane(ExtraScreen.More) }
                 )
 
-                Screenshots(
-                    screenshots = app.screenshots,
-                    onNavigateToScreenshot = { showExtraPane(ExtraScreen.Screenshot(it)) }
-                )
+                if (!hideScreenshotsSection) {
+                    Screenshots(
+                        screenshots = app.screenshots,
+                        onNavigateToScreenshot = { showExtraPane(ExtraScreen.Screenshot(it)) }
+                    )
+                }
 
                 RatingAndReviews(
                     rating = app.rating,

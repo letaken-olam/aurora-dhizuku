@@ -64,13 +64,14 @@ class DhizukuInstaller @Inject constructor(
 
     companion object {
         const val DHIZUKU_PACKAGE_NAME = "com.rosan.dhizuku"
+        const val PLAY_PACKAGE_NAME = "com.android.vending"
 
         val installerInfo: InstallerInfo
             get() = InstallerInfo(
                 id = 8,
                 installer = Installer.DHIZUKU,
                 packageNames = listOf(DHIZUKU_PACKAGE_NAME),
-                installerPackageNames = listOf(DHIZUKU_PACKAGE_NAME),
+                installerPackageNames = listOf(PLAY_PACKAGE_NAME),
                 title = R.string.pref_install_mode_dhizuku,
                 subtitle = R.string.dhizuku_installer_subtitle,
                 description = R.string.dhizuku_installer_desc
@@ -115,11 +116,11 @@ class DhizukuInstaller @Inject constructor(
         val iPackageInstaller = getIPackageInstaller()
         val installer = if (isSAndAbove) {
             Refine.unsafeCast<PackageInstaller>(
-                PackageInstallerHidden(iPackageInstaller, context.packageName, null, 0)
+                PackageInstallerHidden(iPackageInstaller, PLAY_PACKAGE_NAME, null, 0)
             )
         } else if (isOAndAbove) {
             Refine.unsafeCast<PackageInstaller>(
-                PackageInstallerHidden(iPackageInstaller, context.packageName, 0)
+                PackageInstallerHidden(iPackageInstaller, PLAY_PACKAGE_NAME, 0)
             )
         } else {
             null

@@ -175,16 +175,6 @@ class DhizukuInstaller @Inject constructor(
             return
         }
 
-        if (!Dhizuku.isPermissionGranted()) {
-            Log.e(TAG, "Dhizuku permission not granted")
-            postError(
-                packageName,
-                context.getString(R.string.installer_status_failure),
-                context.getString(R.string.installer_dhizuku_unavailable)
-            )
-            return
-        }
-
         val (sessionId, session) = kotlin.runCatching {
             val params = SessionParams(SessionParams.MODE_FULL_INSTALL)
 
